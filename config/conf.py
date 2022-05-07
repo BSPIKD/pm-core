@@ -14,9 +14,10 @@ PRINT_HIGHLIGHT = 'print-highlight'
 
 disable_sync = True  # Todo, přesunout do dtb
 
-ROOT_DIR = Path(__file__).parent.parent
-MASTER_MIGRATION = Path.joinpath(ROOT_DIR, 'src', '_migrations', 'master')
-SERVER_MIGRATION = Path.joinpath(ROOT_DIR, 'src', '_migrations', 'server')
+ROOT_DIR = Path(__file__).parent.parent.parent.parent.parent
+CORE_ROOT_DIR = Path(__file__).parent.parent
+CORE_MASTER_MIGRATION = Path.joinpath(CORE_ROOT_DIR, 'src', '_migrations', 'master')
+CORE_SERVER_MIGRATION = Path.joinpath(CORE_ROOT_DIR, 'src', '_migrations', 'server')
 
 super_user = 'super-user'
 role_owner = 'owner-role'

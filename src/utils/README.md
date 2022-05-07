@@ -1,1 +1,0 @@
-Složka pro pomocné skripty 
