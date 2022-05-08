@@ -9,7 +9,7 @@ from termcolor import cprint
 from pyfiglet import figlet_format
 from src.pm_core.src.services.permission import Perms
 from src.pm_core.src.models.base_db import BaseDb
-import config.conf as _c
+import src.pm_core.config.conf as _c
 
 
 def open_sql_file(filename):
@@ -36,12 +36,29 @@ def get_dir_files(path, extension=None):
     return files
 
 
-def get_master_migration_files():
-    return get_dir_files(_c.MASTER_MIGRATION, '.sql')
+def get_master_migration_files(project: str = 'core'):
+    """
+    Get master migration file, default: core
+    :param project: core/sandbox
+    :return: List of sql files
+    """
+    if project == 'core':
+        return get_dir_files(_c.CORE_MASTER_MIGRATION, '.sql')
+    elif project == 'sandbox':
+        return get_dir_files(_c.SANDBOX_MASTER_MIGRATION, '.sql')
 
 
-def get_server_migration_files():
-    return get_dir_files(_c.SERVER_MIGRATION, '.sql')
+
+def get_server_migration_files(project: str = 'core'):
+    """
+       Get server migration file, default: core
+       :param project: core/sandbox
+       :return: List of sql files
+       """
+    if project == 'core':
+        return get_dir_files(_c.CORE_SERVER_MIGRATION, '.sql')
+    elif project == 'sandbox':
+        return get_dir_files(_c.SANDBOX_SERVER_MIGRATION, '.sql')
 
 
 def parse_cmd_name(cmd: str):

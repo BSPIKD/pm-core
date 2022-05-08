@@ -1,6 +1,6 @@
 import os
 import logging
-import src.pm_core.src.utils.helper as h
+import src.pm_core.src.utils.helper as _h
 
 from src.pm_core.src.services.db_manager import Connection
 from src.pm_core.src.models.base_db import BaseDb
@@ -37,13 +37,13 @@ def base_migration(migration_files, db=0, is_server: bool = False):
 
 
 def apply_master_migrations():
-    base_migration(migration_files=h.get_master_migration_files(), db=0)
+    base_migration(migration_files=_h.get_master_migration_files(), db=0)
 
 
 def apply_server_migrations(gid, name):
     is_guild_new = False
     guild_db_name = f"{os.getenv('DB_PREFIX')}{gid}"
 
-    base_migration(migration_files=h.get_server_migration_files(), db=gid, is_server=True)
+    base_migration(migration_files=_h.get_server_migration_files(), db=gid, is_server=True)
 
     cprint(figlet_format('Setup complete', font='standard'), 'blue')
