@@ -4,9 +4,9 @@ from pathlib import Path
 # 0.0.1-rc.1
 # core.major.minor.patch-rc
 __author_id__ = 228537418079404033
-__version__ = '0.0.0.1'
-__author__ = "Dom-kun#5353"
-__name__ = 'Template'
+__version__ = '0.1-beta'
+__author__ = "Dom-kun#0053"
+__name__ = 'pm-core'
 __contact__ = 'mandinec53@gmail.com'
 
 PRINT_DEBUG = 'print-debug'
