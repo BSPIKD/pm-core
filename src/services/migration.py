@@ -37,13 +37,18 @@ def base_migration(migration_files, db=0, is_server: bool = False):
 
 
 def apply_master_migrations():
-    base_migration(migration_files=_h.get_master_migration_files(), db=0)
+    cprint(figlet_format('CORE MASTER  MIGRATION', font='small'), 'magenta')
+    base_migration(migration_files=_h.get_master_migration_files(project='core'), db=0)
+
+    cprint(figlet_format('SANDBOX MASTER  MIGRATION', font='small'), 'magenta')
+    base_migration(migration_files=_h.get_master_migration_files(project='sandbox'), db=0)
 
 
 def apply_server_migrations(gid, name):
-    is_guild_new = False
-    guild_db_name = f"{os.getenv('DB_PREFIX')}{gid}"
+    cprint(figlet_format('SANDBOX SERVER MIGRATION', font='small'), 'magenta')
+    base_migration(migration_files=_h.get_server_migration_files(project='core'), db=gid, is_server=True)
 
-    base_migration(migration_files=_h.get_server_migration_files(), db=gid, is_server=True)
+    cprint(figlet_format('SANDBOX SERVER MIGRATION', font='small'), 'magenta')
+    base_migration(migration_files=_h.get_server_migration_files(project='sandbox'), db=gid, is_server=True)
 
     cprint(figlet_format('Setup complete', font='standard'), 'blue')
