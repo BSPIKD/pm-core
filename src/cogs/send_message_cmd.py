@@ -1,9 +1,9 @@
 import interactions
 
 # import src.services.rights as _r
-import src.pm_core.src.utils.helper as _h
+import pm_core.src.utils.helper as _h
 
-from src.pm_core.src.services.permission import Perms
+from pm_core.src.services.permission import Perms
 
 
 class SendMsgCmd(interactions.Extension):

@@ -1,7 +1,7 @@
 import os
 
-from src.pm_core.src.services.db_manager import Connection
-import src.pm_core.src.utils.helper as _h
+from pm_core.src.services.db_manager import Connection
+import pm_core.src.utils.helper as _h
 
 
 class BaseDb:

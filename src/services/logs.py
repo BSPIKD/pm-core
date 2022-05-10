@@ -1,8 +1,8 @@
 import inspect
-import src.pm_core.src.utils.helper as _h
+import pm_core.src.utils.helper as _h
 
 from termcolor import cprint
-from src.pm_core.src.models.base_db import BaseDb
+from pm_core.src.models.base_db import BaseDb
 
 
 class Log:

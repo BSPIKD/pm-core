@@ -1,7 +1,7 @@
 import interactions
-import src.pm_core.config.conf as _c
+import pm_core.config.conf as _c
 
-from src.pm_core.src.models.base_db import BaseDb
+from pm_core.src.models.base_db import BaseDb
 
 
 class Perms:

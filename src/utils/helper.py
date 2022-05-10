@@ -7,9 +7,9 @@ import interactions
 from interactions import Member
 from termcolor import cprint
 from pyfiglet import figlet_format
-from src.pm_core.src.services.permission import Perms
-from src.pm_core.src.models.base_db import BaseDb
-import src.pm_core.config.conf as _c
+from pm_core.src.services.permission import Perms
+from pm_core.src.models.base_db import BaseDb
+import pm_core.config.conf as _c
 
 
 def open_sql_file(filename):
