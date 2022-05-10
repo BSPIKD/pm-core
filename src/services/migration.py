@@ -45,7 +45,7 @@ def apply_master_migrations():
 
 
 def apply_server_migrations(gid, name):
-    cprint(figlet_format('SANDBOX SERVER MIGRATION', font='small'), 'magenta')
+    cprint(figlet_format('CORE SERVER MIGRATION', font='small'), 'magenta')
     base_migration(migration_files=_h.get_server_migration_files(project='core'), db=gid, is_server=True)
 
     cprint(figlet_format('SANDBOX SERVER MIGRATION', font='small'), 'magenta')

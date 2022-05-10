@@ -33,7 +33,7 @@ class BaseDb:
             db = f"{os.getenv('DB_PREFIX')}{self.db}"
 
         with Connection(select_db=False) as conn:
-            if self.is_db_exist() is False:
+            if self.is_db_exist(is_server=is_server) is False:
                 # Databáze neexistuje, je potřeba jí vytvořit
                 sql = f"create database if not exists `{db}`;"
                 conn.cur.execute(sql)
