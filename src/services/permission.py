@@ -8,7 +8,26 @@ class Perms:
     def __init__(self, database: int):
         self.base = BaseDb(database=database)
 
-    async def check_cmd_rights(self, ctx: interactions.CommandContext, cmd_name: str, author: interactions.Member):
+    async def check(self, ctx: interactions.CommandContext,
+                    cmd_name: str,
+                    allow: bool = True,
+                    permission: bool = True):
+        """
+        Evaluates whether the conditions for executing the command are met
+        :param ctx:
+        :param cmd_name:
+        :param allow:
+        :param permission:
+        :return:
+        """
+        if allow is True:
+            if self.__is_cmd_exist_or_allowed(ctx, cmd_name) is False:
+                return False
+        if permission is True:
+            return self.__check_cmd_rights(ctx, cmd_name)
+        return True
+
+    async def __check_cmd_rights(self, ctx: interactions.CommandContext, cmd_name: str):
         right = self.base.get_cmd_rights(cmd_name)
         if right == 'SU':
             return await self.is_user_su(ctx)
@@ -19,14 +38,18 @@ class Perms:
         if right == 'SS':
             # check if user have OWNER role
             r = int(self.base.get_config(_c.role_owner))
-            if r in author.roles:
+            if r in ctx.author.roles:
+                return True
+            if await self.is_user_su(ctx):
                 return True
             await ctx.send(_c.err_msg_no_rights, ephemeral=True)
             return False
         elif right == 'S':
             # check if user have MAIN ADMIN or OWNER role
-            if not int(self.base.get_config(_c.role_owner)) in author.roles:
-                if not int(self.base.get_config(_c.role_main_admin)) in author.roles:
+            if not int(self.base.get_config(_c.role_owner)) in ctx.author.roles:
+                if not int(self.base.get_config(_c.role_main_admin)) in ctx.author.roles:
+                    if await self.is_user_su(ctx):
+                        return True
                     await ctx.send(_c.err_msg_no_rights, ephemeral=True)
                     return False
                 return True
@@ -34,9 +57,11 @@ class Perms:
                 return True
         elif right == 'AA':
             # check if user have ADMIN, MAIN ADMIN or OWNER role
-            if not int(self.base.get_config(_c.role_owner)) in author.roles:
-                if not int(self.base.get_config(_c.role_main_admin)) in author.roles:
-                    if not int(self.base.get_config(_c.role_admin)) in author.roles:
+            if not int(self.base.get_config(_c.role_owner)) in ctx.author.roles:
+                if not int(self.base.get_config(_c.role_main_admin)) in ctx.author.roles:
+                    if not int(self.base.get_config(_c.role_admin)) in ctx.author.roles:
+                        if await self.is_user_su(ctx):
+                            return True
                         await ctx.send(_c.err_msg_no_rights, ephemeral=True)
                         return False
                     return True
@@ -46,7 +71,9 @@ class Perms:
         elif right == 'A':
             # check if user have ATEAM role
             r = int(self.base.get_config(_c.role_ateam))
-            if r in author.roles:
+            if r in ctx.author.roles:
+                return True
+            if await self.is_user_su(ctx):
                 return True
             await ctx.send(_c.err_msg_no_rights, ephemeral=True)
             return False
@@ -62,7 +89,7 @@ class Perms:
             return False
         return True
 
-    async def is_cmd_exist_or_allowed(self, ctx: interactions.CommandContext, cmd_name: str):
+    async def __is_cmd_exist_or_allowed(self, ctx: interactions.CommandContext, cmd_name: str):
         """
         Zkontroluje zda je příkaz zavedený v databázi, povolený, nebo vypnutý
         :param ctx: context

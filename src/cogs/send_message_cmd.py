@@ -40,21 +40,13 @@ class SendMsgCmd(interactions.Extension):
         # todo: embed
         perms = Perms(database=int(ctx.guild_id))
 
-
         if await _h.are_configs_set(ctx) is False:
             return
 
         cmd_name = f'hello-{sub_command}'
-        if await perms.is_cmd_exist_or_allowed(ctx, cmd_name) is False:
-            return
 
-        # Set command only for server owner
-        # if await r.is_user_su(ctx) is False:
-        #     return
-
-        # Check the rights according to the configuration in the database
-        if await perms.check_cmd_rights(ctx, cmd_name, ctx.author) is False:
-            return
+        # Výběr práv pro kontrolu
+        await perms.check(ctx, cmd_name, allow=True, permission=True)
 
         # Todo:
         #  Zjistit správnost kanálu
