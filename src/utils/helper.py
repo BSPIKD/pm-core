@@ -156,6 +156,12 @@ def get_today(date_format: str = "%Y-%m-%d %H:%M:%S") -> str:
     return now.strftime(date_format)
 
 
+def is_between(time, time_range):
+    if time_range[1] < time_range[0]:
+        return time >= time_range[0] or time <= time_range[1]
+    return time_range[0] <= time <= time_range[1]
+
+
 def log(msg: str, db: int, color='yellow'):
     base = BaseDb(database=db)
     # Todo: nějak ukládat do global current db
