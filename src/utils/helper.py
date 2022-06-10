@@ -151,9 +151,9 @@ async def remove_role(client, uid: int, role_id: int, db: int):
         role=role_id)
 
 
-def get_today() -> str:
+def get_today(date_format: str = "%Y-%m-%d %H:%M:%S") -> str:
     now = datetime.now()
-    return now.strftime("%Y-%m-%d %H:%M:%S")
+    return now.strftime(date_format)
 
 
 def log(msg: str, db: int, color='yellow'):
